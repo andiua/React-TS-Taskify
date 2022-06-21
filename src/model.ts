@@ -3,7 +3,12 @@ export interface Todo {
 	todo: string;
 	isDone: boolean;
 }
+export type State = {
+	todos: Todo[] | [];
+	completedTodos: Todo[] | [];
+};
 export type AppContextInterface = {
-	state: Todo[];
+	state: State;
 	dispatch: React.Dispatch<any>;
 };
+

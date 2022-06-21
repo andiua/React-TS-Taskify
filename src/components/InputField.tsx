@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { TodosState } from '../context/Context';
-import { AppContextInterface, Todo } from '../model';
+import { AppContextInterface } from '../model';
 import './styles.scss';
 
 // interface Props {
@@ -10,9 +10,10 @@ import './styles.scss';
 // }
 
 const InputField = () => {
-	const { state, dispatch } = TodosState() as AppContextInterface;
+	const { dispatch } = TodosState() as AppContextInterface;
+	// const { state, dispatch } = TodosState() as AppContextInterface;
 	const [to, setTo] = useState<string>('');
-	const handleAdd = (e: React.FormEvent, state: Todo[], dispatch: React.Dispatch<any>) => {
+	const handleAdd = (e: React.FormEvent, dispatch: React.Dispatch<any>) => {
 		e.preventDefault();
 		dispatch({
 			type: 'add',
@@ -26,7 +27,7 @@ const InputField = () => {
 		<form
 			className="input"
 			onSubmit={(e) => {
-				handleAdd(e, state, dispatch);
+				handleAdd(e, dispatch);
 				inputRef.current?.blur();
 			}}>
 			<input

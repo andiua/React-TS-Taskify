@@ -1,17 +1,13 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { Todo } from '../model';
+import { TodosState } from '../context/Context';
+import { AppContextInterface } from '../model';
 import SingleTodo from './SingleTodo';
 import './styles.scss';
 
-interface Props {
-	todos: Todo[];
-	setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-	completedTodos: Todo[];
-	setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
 
-const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedTodos }) => {
+const TodoList: React.FC = () => {
+	const { state: {todos, completedTodos} } = TodosState() as AppContextInterface; 
 	return (
 		<div className="container">
 			<Droppable droppableId="TodosList">
@@ -20,18 +16,13 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
 						<ul
 							className={`todos ${snapshot.isDraggingOver ? 'dragactive' : ''}`}
 							ref={provided.innerRef}
-							{...provided.droppableProps}
-						>
+							{...provided.droppableProps}>
 							<span className="todos__heading">Active Tasks</span>
 							{todos?.map((todo, index) => (
 								<SingleTodo
 									index={index}
 									todo={todo}
 									key={todo.id}
-									todos={todos}
-									setTodos={setTodos}
-									completedTodos={completedTodos}
-									setCompletedTodos={setCompletedTodos}
 								/>
 							))}
 							{provided.placeholder}
@@ -54,11 +45,6 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
 									index={index}
 									todo={todo}
 									key={todo.id}
-									todos={completedTodos}
-									setTodos={setCompletedTodos}
-									remove={true}
-									completedTodos={completedTodos}
-									setCompletedTodos={setCompletedTodos}
 								/>
 							))}
 							{provided.placeholder}

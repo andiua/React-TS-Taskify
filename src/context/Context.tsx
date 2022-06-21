@@ -9,12 +9,11 @@ type Props = {
 const TodosList = createContext<AppContextInterface | null>(null);
 
 const Context: React.FC<Props> = ({ children }) => {
-	const [state, dispatch] = useReducer(TodoReducer, []);
-	console.log(state);
-	return <TodosList.Provider value={{state, dispatch}}>{children}</TodosList.Provider>;
+	const [state, dispatch] = useReducer(TodoReducer, { todos: [], completedTodos: [] });
+	return <TodosList.Provider value={{ state, dispatch }}>{children}</TodosList.Provider>;
 };
 
-export default Context
+export default Context;
 
 export const TodosState = () => {
 	return useContext(TodosList);
